@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: fastapi-course-enrollment
+    env: python
+    region: oregon  # or any other region like frankfurt, ohio, etc.
+    plan: free
+    buildCommand: ""
+    startCommand: ./start.sh
+    envVars:
+      - key: DATABASE_URL
+        value: your_database_url_here
