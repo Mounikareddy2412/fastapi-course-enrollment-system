@@ -35,8 +35,10 @@ app.include_router(enrollments.router)
 app.include_router(auth_router.router)
 
 # --- HTML Templates (Step 3) ---
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This file's directory
-TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
+import os
+
+TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), "..", "templates")
+TEMPLATES_DIR = os.path.abspath(TEMPLATES_DIR)
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
 # --- Root endpoint (HTML homepage) ---
