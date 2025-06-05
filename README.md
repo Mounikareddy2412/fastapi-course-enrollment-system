@@ -1,5 +1,8 @@
 # FastAPI Course Enrollment System
 
+## 🚀 Live Demo
+🔗 [Deployed on Render](https://fastapi-course-enrollment-system-2.onrender.com)
+
 ## Description
 An online course enrollment system built with FastAPI, PostgreSQL, and SQLAlchemy.  
 This project allows users to register, log in with JWT authentication, browse courses, and securely enroll in courses.
