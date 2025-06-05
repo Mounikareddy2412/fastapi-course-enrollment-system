@@ -37,7 +37,7 @@ app.include_router(auth_router.router)
 # --- HTML Templates (Step 3) ---
 import os
 
-TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), "..", "templates")
+TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), "templates")
 TEMPLATES_DIR = os.path.abspath(TEMPLATES_DIR)
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
