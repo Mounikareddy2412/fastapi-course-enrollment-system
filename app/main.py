@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
-from fastapi import FastAPI, Depends, HTTPException, status
-from app.routers import auth as auth_router
+from fastapi import FastAPI, Depends, HTTPException, status, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from jose import JWTError, jwt
@@ -8,7 +9,7 @@ import os
 
 from app.database import engine, Base, get_db
 from app import crud, models, schemas
-from app.routers import users, courses, enrollments
+from app.routers import users, courses, enrollments, auth as auth_router
 
 # --- JWT Configuration ---
 SECRET_KEY = "your_secret_key"  # 🔐 Use environment variable in production
@@ -33,10 +34,15 @@ app.include_router(courses.router)
 app.include_router(enrollments.router)
 app.include_router(auth_router.router)
 
-# --- Root endpoint ---
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the Online Course Enrollment API"}
+# --- HTML Templates (Step 3) ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This file's directory
+TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
+
+# --- Root endpoint (HTML homepage) ---
+@app.get("/", response_class=HTMLResponse)
+def read_home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 # --- Token Creation Helper ---
 def create_access_token(data: dict, expires_delta: timedelta = None):
